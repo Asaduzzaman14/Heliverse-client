@@ -8,6 +8,7 @@ const Main = () => {
       <div className=''>
         <Header />
         <Outlet />
+
       </div>
     </div>
   );

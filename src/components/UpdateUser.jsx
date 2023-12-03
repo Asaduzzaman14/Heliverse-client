@@ -8,14 +8,18 @@ import {
   Typography,
   Input,
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
-const UpdateUser = ({ updateData, open
-  , handleOpen }) => {
-  console.log(updateData, 'data');
-
-  const [updatedUserData, setUpdatedUserData] = useState(updateData);
+const UpdateUser = ({ updateData,
+  open,
+  handleOpen,
+  handleUpdate,
+}) => {
+  const [updatedUserData, setUpdatedUserData] = useState();
+  useEffect(() => {
+    setUpdatedUserData({ ...updateData });
+  }, [updateData]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +28,7 @@ const UpdateUser = ({ updateData, open
       [name]: value,
     }));
   };
-  console.log(updatedUserData, 'old');
+  console.log(updatedUserData?.email);
   return (
     <>
       <Dialog
@@ -79,17 +83,23 @@ const UpdateUser = ({ updateData, open
             </Typography>
 
             <Input
-              label="Gender" size="sm" />
+              label="Gender" size="sm" name="gender"
+              value={updatedUserData?.gender}
+              onChange={handleInputChange} />
 
             <Typography className="-mb-3" >
-              Position
+              domain
             </Typography>
-            <Input label="Position" size="sm" />
+            <Input label="domain"
+              name="domain"
+              value={updatedUserData?.domain}
+              onChange={handleInputChange}
+              size="sm" />
 
           </CardBody>
 
           <CardFooter className="pt-0">
-            <Button variant="gradient" onClick={handleOpen} fullWidth>
+            <Button variant="gradient" onClick={() => handleUpdate(updatedUserData)} fullWidth>
               Update
             </Button>
           </CardFooter>

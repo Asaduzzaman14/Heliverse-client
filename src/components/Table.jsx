@@ -19,7 +19,10 @@ import UpdateUser from "./UpdateUser";
 import { useState } from "react";
 
 
-const Table = ({ data, handleDelete, getData
+const Table = ({ data,
+  handleDelete,
+  handleEdit,
+  getData
 }) => {
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState();
@@ -29,8 +32,37 @@ const Table = ({ data, handleDelete, getData
   const updateMe = (d) => {
     handleOpen();
     setUpdateData(d);
-    // handleEdit(d);
+    handleEdit(d);
   };
+
+  const handleUpdate = async (updatedUserData) => {
+
+    try {
+      // Perform the PATCH request here
+      const response = await fetch(`https://heliverse-two.vercel.app/api/v1/users/${updateData._id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedUserData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update user');
+      }
+      if (response.ok) {
+        getData();
+        handleOpen();
+        console.log('done');
+      }
+
+      // Handle success, update state, etc.
+    } catch (error) {
+      console.error('Error updating user:', error.message);
+    }
+  };
+
+
 
   return (
     <>
@@ -38,39 +70,33 @@ const Table = ({ data, handleDelete, getData
         updateData={updateData}
         open={open}
         handleOpen={handleOpen}
-        getData={getData}
+        handleUpdate={handleUpdate}
       />
       {/* <Button onClick={handleOpen}>Sign In</Button> */}
 
-      <Card className="h-full mt-4 w-full" style={{ maxWidth: '90%' }}>
+      <Card className="h-full mt-4"  >
         <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="mb-4 flex flex-col lg:flex-row justify-between gap-8">
-            <div>
+          <div className="mb-4">
+            <div className="flex  first-letter:">
               <Typography variant="h5" color="blue-gray">
-                Recent Transactions
+                All Users
               </Typography>
-              <Typography color="gray" className="mt-1 font-normal">
-                These are details about the last transactions
-              </Typography>
-            </div>
-
-            <div className="flex w-full shrink-0 gap-2 md:w-max">
               <div className="w-44">
                 <Input
                   label="Search"
                   icon={<MagnifyingGlassIcon className="h-5 w-5" />}
                 />
               </div>
-
             </div>
+
           </div>
         </CardHeader>
-        <div className="flex  flex-col overflow-x-auto">
+        <div className="flex flex-col overflow-x-auto">
           <div className=" ">
-            <div className="inline-block  py-2   lg:px-8">
+            <div className="inline-block  py-2 lg:px-8">
               <div className="overflow-x-auto">
 
-                <table className=" w-[calc(100)] text-left text-sm font-light">
+                <table className=" max-w-sm text-left text-sm font-light">
                   <thead className="border-b font-medium dark:border-neutral-500">
                     <tr>
                       <th scope="col" className="px-6 py-4">No.</th>

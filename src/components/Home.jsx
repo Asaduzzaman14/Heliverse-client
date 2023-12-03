@@ -17,7 +17,7 @@ const Home = () => {
 
   const [deleteid, setDeleteId] = useState(null);
   console.log(deleteid);
-  // const [updateid, setUpdateId] = useState(null);
+  const [updateid, setUpdateId] = useState(null);
 
 
   useEffect(() => {
@@ -53,9 +53,9 @@ const Home = () => {
   };
 
 
-  // const handleEdit = (id) => {
-  //   setUpdateId(id);
-  // };
+  const handleEdit = (id) => {
+    setUpdateId(id);
+  };
   useEffect(() => {
     if (!data) {
       getData();
@@ -64,7 +64,7 @@ const Home = () => {
 
   console.log(data);
   return (
-    <div className="flex gap-2 lg:gap-5 justify-between )">
+    <div className="flex gap-2 lg:gap-5 )">
       <div className="flex">
         <DefaultSidebar />
         {/* <div className="pt-4 text-center flex mx-auto">
@@ -93,7 +93,7 @@ const Home = () => {
       <Table
         data={data}
         handleDelete={handleDelete}
-        // handleEdit={handleEdit}
+        handleEdit={handleEdit}
         getData={getData}
       />
     </div>
