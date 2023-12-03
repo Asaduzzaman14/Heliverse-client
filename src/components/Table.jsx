@@ -11,8 +11,6 @@ import {
   CardHeader,
   Typography,
 
-  CardFooter,
-  IconButton,
   Input,
 } from "@material-tailwind/react";
 import UpdateUser from "./UpdateUser";
@@ -77,7 +75,7 @@ const Table = ({ data,
       <Card className="h-full mt-4"  >
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="mb-4">
-            <div className="flex  first-letter:">
+            <div className="flex flex-col gap-2">
               <Typography variant="h5" color="blue-gray">
                 All Users
               </Typography>
@@ -96,7 +94,7 @@ const Table = ({ data,
             <div className="inline-block  py-2 lg:px-8">
               <div className="overflow-x-auto">
 
-                <table className=" max-w-sm text-left text-sm font-light">
+                <table className="tableResponsive max-w-sm text-left text-sm font-light">
                   <thead className="border-b font-medium dark:border-neutral-500">
                     <tr>
                       <th scope="col" className="px-6 py-4">No.</th>
@@ -120,11 +118,14 @@ const Table = ({ data,
                             <td className="whitespace-nowrap px-6 py-4">{d?.email}</td>
                             <td className="whitespace-nowrap px-6 py-4">{d?.gender}</td>
                             <td className="whitespace-nowrap px-6 py-4">{d?.domain}</td>
-                            <td className="whitespace-nowrap px-6 py-4"> <div>
-                              <button onClick={() => handleDelete(d?._id)}> <MdDelete className="text-2xl text-red-500" /></button>
-                              <button onClick={() => updateMe(d)}>
-                                <FaEdit /> </button>
-                            </div></td>
+                            <td className="whitespace-nowrap px-6 py-4">
+                              <div className="flex  gap-1">
+                                <button onClick={() => handleDelete(d?._id)}>
+                                  <MdDelete className="text-2xl text-red-500 hover:bg-blue-gray-200 rounded-sm " /></button>
+                                <button onClick={() => updateMe(d)}>
+                                  <FaEdit className="text-2xl text-red-500 hover:bg-blue-gray-200 rounded-sm " /> </button>
+                              </div>
+                            </td>
                           </tr>
                         );
                       })
@@ -137,7 +138,7 @@ const Table = ({ data,
           </div>
         </div>
 
-        <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
 
           <div className="flex items-center gap-2">
             <IconButton variant="outlined" size="sm">
@@ -163,7 +164,7 @@ const Table = ({ data,
             </IconButton>
           </div>
 
-        </CardFooter>
+        </CardFooter> */}
       </Card>
     </>
   );

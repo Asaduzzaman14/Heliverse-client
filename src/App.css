@@ -3,3 +3,46 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+.tableResponsive {
+  overflow-x: auto;
+
+  width: 100%;
+  max-width: 100%;
+}
+
+@media screen and (max-width: 1024px) {
+  .tableResponsive {
+    display: block;
+    max-width: 700px !important;
+    overflow-x: auto;
+  }
+}
+@media screen and (max-width: 768px) {
+  .tableResponsive {
+    display: block;
+    max-width: 520px !important;
+    overflow-x: auto;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Adjust styles as needed for landscape phones */
+  .tableResponsive {
+    display: block;
+    width: 355px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Responsive styles for portrait phones */
+@media screen and (max-width: 320px) {
+  /* Adjust styles as needed for portrait phones */
+  .tableResponsive {
+    display: block;
+    max-width: 250px !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

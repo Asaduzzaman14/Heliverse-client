@@ -1,78 +1,65 @@
 
 
-import {
-  Button,
-  Dialog,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-  Typography,
-  Input,
-  CardBody,
-  Card,
-} from "@material-tailwind/react";
-import { useState } from "react";
-
 const About = () => {
-  const [open, setOpen] = useState(false);
-
-  const handleOpen = () => setOpen(!open);
   return (
-    <>
-      <Button onClick={handleOpen}>Long Dialog</Button>
-      <Dialog open={open} handler={handleOpen}>
-        <DialogHeader>Long Dialog</DialogHeader>
-        <DialogBody className="h-[42rem] overflow-scroll">
-
-          <Card className="mx-auto w-full max-w-[24rem]">
-            <CardBody className="flex flex-col gap-4">
-              <Typography variant="h4" color="blue-gray">
-                Update data
-              </Typography>
-
-              <Typography
-                className="mb-3 font-normal"
-                variant="paragraph"
-                color="gray"
-              >
-                Enter your new Data.
-              </Typography>
-              <Typography className="-mb-3">
-                Email
-              </Typography>
-              <Input label="Email" size="xs" />
-
-              <Typography className="-mb-3" >
-                First Name
-              </Typography>
-              <Input label="First Name" size="sm" />
-              <Typography className="-mb-3" >
-                Last Name
-              </Typography>
-              <Input label="last Name" size="sm" />
-              <Typography className="-mb-3" >
-                Gender
-              </Typography>
-              <Input label="Gender" size="sm" />
-
-              <Typography className="-mb-3" >
-                Position
-              </Typography>
-              <Input label="Position" size="sm" />
-            </CardBody>
-          </Card>
-        </DialogBody>
-        <DialogFooter className="space-x-2">
-          <Button variant="text" color="blue-gray" onClick={handleOpen}>
-            cancel
-          </Button>
-          <Button variant="gradient" color="green" onClick={handleOpen}>
-            confirm
-          </Button>
-        </DialogFooter>
-      </Dialog>
-    </>
-
+    <div className="flex flex-col overflow-x-auto">
+      <div className="sm:-mx-6 lg:-mx-8">
+        <div className="inline-block min-w-full py-2 sm:px-6 lg:px-8">
+          <div className="overflow-x-auto">
+            <table className="min-w-full text-left text-sm font-light">
+              <thead className="border-b font-medium dark:border-neutral-500">
+                <tr>
+                  <th scope="col" className="px-6 py-4">#</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                  <th scope="col" className="px-6 py-4">Heading</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b dark:border-neutral-500">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium">1</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                </tr>
+                <tr className="border-b dark:border-neutral-500">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium ">2</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4 ">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4 ">Cell</td>
+                </tr>
+                <tr className="border-b ">
+                  <td className="whitespace-nowrap px-6 py-4 font-medium ">3</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                  <td className="whitespace-nowrap px-6 py-4">Cell</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 
