@@ -1,27 +1,28 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
+
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
 import {
-
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
-import {
   Card,
   CardHeader,
-  Typography,
 
   Input,
+  Checkbox,
+  Button,
 } from "@material-tailwind/react";
 import UpdateUser from "./UpdateUser";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Table = ({ data,
   handleDelete,
   handleEdit,
-  getData
+  getData,
+  search,
+  setSearch
 }) => {
+  console.log(data);
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState();
 
@@ -59,7 +60,17 @@ const Table = ({ data,
       console.error('Error updating user:', error.message);
     }
   };
+  // console.log(data);
 
+  const handelSearch = (e) => {
+    setSearch(e?.target?.value);
+    if (e?.target?.value == '') {
+      console.log(e);
+    }
+    setTimeout(() => {
+      getData();
+    }, [!search, 1000]);
+  };
 
 
   return (
@@ -72,22 +83,28 @@ const Table = ({ data,
       />
       {/* <Button onClick={handleOpen}>Sign In</Button> */}
 
-      <Card className="h-full mt-4"  >
+      <Card className="h-full mt-4">
         <CardHeader floated={false} shadow={false} className="rounded-none">
-          <div className="mb-4">
-            <div className="flex flex-col gap-2">
-              <Typography variant="h5" color="blue-gray">
-                All Users
-              </Typography>
-              <div className="w-44">
-                <Input
-                  label="Search"
-                  icon={<MagnifyingGlassIcon className="h-5 w-5" />}
-                />
-              </div>
-            </div>
-
+          <div className="relative flex w-full max-w-[15rem]">
+            <Input
+              type="text"
+              label="text"
+              className="pr-20"
+              onChange={(e) => handelSearch(e)}
+              containerProps={{
+                className: "min-w-0",
+              }}
+            />
+            <Button
+              size="sm"
+              className="!absolute right-1 top-1 rounded"
+              onClick={() => getData()}
+              disabled={!search}
+            >
+              Search
+            </Button>
           </div>
+
         </CardHeader>
         <div className="flex flex-col overflow-x-auto">
           <div className=" ">
@@ -97,38 +114,38 @@ const Table = ({ data,
                 <table className="tableResponsive max-w-sm text-left text-sm font-light">
                   <thead className="border-b font-medium dark:border-neutral-500">
                     <tr>
-                      <th scope="col" className="px-6 py-4">No.</th>
-
-                      <th scope="col" className="px-6 py-4">User</th>
-                      <th scope="col" className="px-6 py-4">Name</th>
-                      <th scope="col" className="px-6 py-4">Email</th>
-                      <th scope="col" className="px-6 py-4">Gender</th>
-                      <th scope="col" className="px-6 py-4">Position</th>
-                      <th scope="col" className="px-6 py-4">Action</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">Select</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">User</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">Name</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">Email</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">Gender</th>
+                      <th scope="col" className="px-2 md:px-4 py-4 text-center">Position</th>
+                      <th scope="col" className="px-2 md:px-4 py-4">Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {
-                      data?.map((d,) => {
+                    {data?.data ?
+                      data?.data?.map(d => {
                         return (
                           <tr className="border-b dark:border-neutral-500" key={d._id}>
-                            <td className="whitespace-nowrap px-6 py-4 font-medium">{d?.id}</td>
-                            <td className="whitespace-nowrap px-6 py-4"><img src={d?.avatar} alt="" /></td>
-                            <td className="whitespace-nowrap px-6 py-4">{d?.first_name} {d.last_name}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{d?.email}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{d?.gender}</td>
-                            <td className="whitespace-nowrap px-6 py-4">{d?.domain}</td>
-                            <td className="whitespace-nowrap px-6 py-4">
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4 font-medium"><Checkbox /></td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4"><img src={d?.avatar} alt="" /></td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.first_name} {d.last_name}</td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.email}</td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.gender}</td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4 text-center">{d?.domain}</td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4">
                               <div className="flex  gap-1">
                                 <button onClick={() => handleDelete(d?._id)}>
                                   <MdDelete className="text-2xl text-red-500 hover:bg-blue-gray-200 rounded-sm " /></button>
                                 <button onClick={() => updateMe(d)}>
-                                  <FaEdit className="text-2xl text-red-500 hover:bg-blue-gray-200 rounded-sm " /> </button>
+                                  <FaEdit className="text-2xl text-green-900 hover:bg-blue-gray-200 rounded-sm " /> </button>
                               </div>
                             </td>
                           </tr>
                         );
                       })
+                      : <tr>{getData()}</tr>
                     }
 
                   </tbody>
@@ -172,3 +189,13 @@ const Table = ({ data,
 };
 
 export default Table;
+
+
+Table.propTypes = {
+  data: PropTypes.array.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
+  search: PropTypes.string.isRequired,
+  setSearch: PropTypes.func.isRequired,
+};

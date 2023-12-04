@@ -28,7 +28,6 @@ const UpdateUser = ({ updateData,
       [name]: value,
     }));
   };
-  console.log(updatedUserData?.email);
   return (
     <>
       <Dialog

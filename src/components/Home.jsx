@@ -4,9 +4,11 @@ import Table from "./Table";
 
 const Home = () => {
   const [data, setData] = useState();
+  const [search, setSearch] = useState('');
+  console.log(search);
 
   const getData = () => {
-    fetch('https://heliverse-two.vercel.app/api/v1/users')
+    fetch(`https://heliverse-two.vercel.app/api/v1/users?searchTerm=${search}`)
       .then(res => res.json())
       .then(res => setData(res?.data))
       .catch(error => {
@@ -49,6 +51,9 @@ const Home = () => {
 
   const handleDelete = (id) => {
     console.log(id);
+
+    window.confirm('message');
+
     setDeleteId(id);
   };
 
@@ -95,6 +100,8 @@ const Home = () => {
         handleDelete={handleDelete}
         handleEdit={handleEdit}
         getData={getData}
+        search={search}
+        setSearch={setSearch}
       />
     </div>
   );
