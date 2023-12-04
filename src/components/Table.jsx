@@ -22,7 +22,6 @@ const Table = ({ data,
   search,
   setSearch
 }) => {
-  console.log(data);
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState();
 
@@ -35,7 +34,6 @@ const Table = ({ data,
   };
 
   const handleUpdate = async (updatedUserData) => {
-
     try {
       // Perform the PATCH request here
       const response = await fetch(`https://heliverse-two.vercel.app/api/v1/users/${updateData._id}`, {
@@ -55,22 +53,20 @@ const Table = ({ data,
         console.log('done');
       }
 
-      // Handle success, update state, etc.
     } catch (error) {
       console.error('Error updating user:', error.message);
     }
   };
-  // console.log(data);
 
-  const handelSearch = (e) => {
-    setSearch(e?.target?.value);
-    if (e?.target?.value == '') {
-      console.log(e);
-    }
-    setTimeout(() => {
-      getData();
-    }, [!search, 1000]);
+  const handelSearch = () => {
+    getData();
   };
+
+  useEffect(() => {
+    getData();
+
+  }, [!search]);
+
 
 
   return (
@@ -90,7 +86,9 @@ const Table = ({ data,
               type="text"
               label="text"
               className="pr-20"
-              onChange={(e) => handelSearch(e)}
+              name='search'
+
+              onChange={(e) => setSearch(e.target.value)}
               containerProps={{
                 className: "min-w-0",
               }}
@@ -98,7 +96,7 @@ const Table = ({ data,
             <Button
               size="sm"
               className="!absolute right-1 top-1 rounded"
-              onClick={() => getData()}
+              onClick={() => handelSearch()}
               disabled={!search}
             >
               Search

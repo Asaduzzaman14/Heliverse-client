@@ -18,7 +18,6 @@ const Home = () => {
   };
 
   const [deleteid, setDeleteId] = useState(null);
-  console.log(deleteid);
   const [updateid, setUpdateId] = useState(null);
 
 
@@ -52,7 +51,7 @@ const Home = () => {
   const handleDelete = (id) => {
     console.log(id);
 
-    window.confirm('message');
+    window.confirm('are you sure');
 
     setDeleteId(id);
   };
@@ -61,11 +60,11 @@ const Home = () => {
   const handleEdit = (id) => {
     setUpdateId(id);
   };
-  useEffect(() => {
-    if (!data) {
-      getData();
-    }
-  }, [data]);
+  // useEffect(() => {
+  //   if (!data) {
+  //     getData();
+  //   }
+  // }, [data]);
 
   console.log(data);
   return (

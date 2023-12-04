@@ -11,7 +11,20 @@ import { IoMdClose } from "react-icons/io";
 
 export function DefaultSidebar() {
   let [open, setOpen] = useState(false);
-
+  const [filter, setFilter] = useState({
+    domain: '',
+    available: '',
+    gender: ''
+  });
+  console.log(filter);
+  // const handleDomainChange = (e) => {
+  //   console.log(e);
+  //   setFilter({
+  //     ...filter,
+  //     domain: e.target.value
+  //   });
+  //   // Additional logic if needed
+  // };
   return (
     <Card className={`h-[calc(100vh)] overflow-hidden w-full max-w-[2.3rem] md:max-w-[15rem] ${open ? "max-w-[10rem] md:md:max-w-[15rem] " : ""} shadow-xl shadow-blue-gray-100`}>
 
@@ -22,14 +35,14 @@ export function DefaultSidebar() {
       </div>
 
       <div className="flex mt-2 w-full p-2 flex-col gap-3">
-        <Select size="sm" label="Select Domain">
+        <Select size="" label="Select Domain">
           <Option>Management</Option>
           <Option>Marketing</Option>
-          <Option>Business </Option>
+          <Option>Business</Option>
           <Option>Sales</Option>
           <Option>IT</Option>
-
         </Select>
+
         <Select size="sm" label="Select Available">
           <Option>Available</Option>
           <Option>Unavailable</Option>
@@ -44,4 +57,4 @@ export function DefaultSidebar() {
 
     </Card>
   );
-}
+};
