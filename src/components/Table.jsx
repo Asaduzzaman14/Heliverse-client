@@ -82,7 +82,7 @@ const Table = ({ data,
     dispatch(addToCart(paylode));
   };
 
-  const perPage = 10;
+  const perPage = 20;
 
   const totalPages = Math.ceil(data?.meta?.total / perPage);
   const handlePageChange = (page = 1) => {

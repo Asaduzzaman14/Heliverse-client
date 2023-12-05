@@ -25,12 +25,18 @@ const CreateTeam = () => {
           },
           body: JSON.stringify(myData),
         }
+
       );
+      if (response.ok) {
+        alert('Team created success');
+
+      }
       const resData = await response?.json();
 
       console.log(resData);
     } catch (error) {
-      console.error("Error during POST request:", error);
+      alert('Error during POST request');
+      console.error("Error during POST request:");
     }
   };
 

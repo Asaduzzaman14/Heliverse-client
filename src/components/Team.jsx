@@ -28,7 +28,7 @@ const Team = () => {
             return (
               <div key={team?._id} className="bg-gray-300 p-2 rounded-md">
                 <h2 className="text-lg font-bold p-2">{team?.email} </h2>
-                <div className="p-2 rounded-md grid grid-cols-1 lg:grid-cols-3 gap-2 ">
+                <div className="p-2 rounded-md grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 ">
                   {team?.users?.map(user => {
                     return (
                       <div key={user?._id} className=" border rounded-md border-black p-2">
