@@ -19,9 +19,9 @@ const Home = () => {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filter[key])}`)
     .join('&');
 
+
   const getData = (page = 1) => {
-    console.log('fetched page', currentPage);
-    console.log(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&searchTerm=${search}`, 'urlllll');
+    console.log(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&page=${page}&searchTerm=${search}`, 'urlllll');
     fetch(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&page=${page}&searchTerm=${search}`)
       .then(res => res.json())
       .then(res => setData(res?.data))
@@ -30,22 +30,6 @@ const Home = () => {
         setData(null); // Set data to null in case of an error
       });
   };
-
-
-  // const convertToQueryString = (params) => {
-  //   return Object.keys(params)
-  //     .filter((key) => params[key] !== '')
-  //     .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
-  //     .join('&');
-  // };
-
-  // const fetchWithData = () => {
-  //   const queryString = convertToQueryString(filter);
-  //   setQuery(queryString)
-
-  // };
-
-
 
   const [deleteid, setDeleteId] = useState(null);
   const [setUpdateId] = useState(null);
@@ -83,7 +67,6 @@ const Home = () => {
     setDeleteId(id);
   };
 
-
   const handleEdit = (id) => {
     setUpdateId(id);
   };
@@ -93,33 +76,10 @@ const Home = () => {
     }
   }, [data]);
 
-  // console.log(data);
   return (
     <div className="flex gap-2 lg:gap-5 )">
-      <div className="flex">
+      <div className="flex mr-7  lg:mr-[15rem]">
         <DefaultSidebar getData={getData} filter={filter} setFilter={setFilter} />
-        {/* <div className="pt-4 text-center flex mx-auto">
-          <div className="relative flex w-full max-w-[24rem]">
-            <Input
-              type="text"
-              label="search"
-              value={email}
-              onChange={onChange}
-              className="pr-20"
-              containerProps={{
-                className: "min-w-0",
-              }}
-            />
-            <Button
-              size="sm"
-              color={email ? "gray" : "blue-gray"}
-              disabled={!email}
-              className="!absolute right-1 top-1 rounded"
-            >
-              Search
-            </Button>
-          </div>
-        </div> */}
       </div>
       <Table
         data={data}

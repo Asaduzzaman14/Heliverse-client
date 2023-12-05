@@ -15,6 +15,7 @@ import UpdateUser from "./UpdateUser";
 import { useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../redux/team';
+import CreateTeam from './CreateTeam';
 
 
 const Table = ({ data,
@@ -26,10 +27,16 @@ const Table = ({ data,
   currentPage,
   setCurrentPage
 }) => {
+  console.log(data);
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState();
 
   const handleOpen = () => setOpen((cur) => !cur);
+
+  useEffect(() => {
+    getData();
+
+  }, [search]);
 
   const updateMe = (d) => {
     handleOpen();
@@ -54,6 +61,7 @@ const Table = ({ data,
       if (response.ok) {
         getData();
         handleOpen();
+        alert('updated');
         // console.log('done');
       }
 
@@ -66,10 +74,7 @@ const Table = ({ data,
     getData();
   };
 
-  useEffect(() => {
-    getData();
 
-  }, [!search]);
   const dispatch = useDispatch();
 
   const handleAddUser = (paylode) => {
@@ -136,6 +141,7 @@ const Table = ({ data,
                       <th scope="col" className="px-2 md:px-4 py-4">Email</th>
                       <th scope="col" className="px-2 md:px-4 py-4">Gender</th>
                       <th scope="col" className="px-2 md:px-4 py-4 text-center">Position</th>
+                      <th scope="col" className="px-2 md:px-4 py-4 text-center">Available</th>
                       <th scope="col" className="px-2 md:px-4 py-4">Action</th>
                     </tr>
                   </thead>
@@ -144,12 +150,13 @@ const Table = ({ data,
                       data?.data?.map(d => {
                         return (
                           <tr className="border-b dark:border-neutral-500" key={d._id}>
-                            <td className="whitespace-nowrap px-2 md:px-4 py-4 font-medium"><Checkbox onChange={() => handleAddUser(d._id)} /></td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4 font-medium"><Checkbox onChange={() => handleAddUser(d)} /></td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4"><img src={d?.avatar} alt="" /></td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.first_name} {d.last_name}</td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.email}</td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.gender}</td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4 text-center">{d?.domain}</td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4 text-center">{d?.available ? "Available" : 'Unavailable'}</td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">
                               <div className="flex  gap-1">
                                 <button onClick={() => handleDelete(d?._id)}>
@@ -170,6 +177,8 @@ const Table = ({ data,
             </div>
           </div>
         </div>
+        <CreateTeam />
+
         <div className="flex justify-center my-4">
           <nav>
             <ul className="pagination flex rounded-md font-medium">

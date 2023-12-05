@@ -11,7 +11,7 @@
   max-width: 100%;
 }
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1100px) {
   .tableResponsive {
     display: block;
     max-width: 700px !important;
@@ -21,7 +21,7 @@
 @media screen and (max-width: 768px) {
   .tableResponsive {
     display: block;
-    max-width: 520px !important;
+    max-width: 460px !important;
     overflow-x: auto;
   }
 }
@@ -30,7 +30,7 @@
   /* Adjust styles as needed for landscape phones */
   .tableResponsive {
     display: block;
-    width: 355px;
+    width: 330px;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }

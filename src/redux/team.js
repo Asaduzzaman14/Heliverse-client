@@ -10,21 +10,24 @@ const cartSlice = createSlice({
   reducers: {
     addToCart: (state, action) => {
       const isExist = state.users.find(
-        (product) => product._id == action.payload._id
+        (user) => user._id === action.payload._id
       );
-      if (isExist) {
+
+      console.log(isExist);
+
+      if (!isExist) {
+        state.users.push(action.payload);
+      } else {
         console.log(isExist);
         state.users = state.users.filter(
-          (product) => product._id != action.payload._id
+          (user) => user._id !== action.payload._id
         );
-      } else {
-        state.users.push(action.payload);
       }
     },
 
     // removeFromCart: (state, action) => {
     //   state.users = state.users.filter(
-    //     (product) => product._id != action.payload._id
+    //     (user) => user._id != action.payload._id
     //   );
     // },
   },

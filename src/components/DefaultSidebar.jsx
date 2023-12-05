@@ -7,31 +7,19 @@ import {
   Option,
 
 } from "@material-tailwind/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CiMenuBurger } from "react-icons/ci";
 import { IoMdClose } from "react-icons/io";
 
 export function DefaultSidebar({ getData, filter, setFilter }) {
 
   let [open, setOpen] = useState(false);
-  // const [filter, setFilter] = useState({
-  //   domain: '',
-  //   available: '',
-  //   gender: ''
-  // });
-  // console.log(filter);
-
-
-
-
-  console.log(filter);
   const handleDomainChange = (value) => {
     setFilter({
       ...filter,
       domain: value
     });
     getData();
-    console.log('filter again');
   };
 
   const handleAvailableChange = (value) => {
@@ -40,7 +28,6 @@ export function DefaultSidebar({ getData, filter, setFilter }) {
       available: value
     });
     getData();
-    console.log('filter again');
   };
 
   const handleGenderChange = (value) => {
@@ -49,11 +36,14 @@ export function DefaultSidebar({ getData, filter, setFilter }) {
       gender: value
     });
     getData();
-    console.log('filter again');
   };
+  useEffect(() => {
+    getData();
+  }, [filter]);
+
 
   return (
-    <Card className={`h-[calc(100vh)] overflow-hidden w-full max-w-[2.3rem] md:max-w-[15rem] ${open ? "max-w-[10rem] md:md:max-w-[15rem] " : ""} shadow-xl shadow-blue-gray-100`}>
+    <Card className={`h-[calc(100vh)] overflow-hidden absolute  z-40 w-full max-w-[2.3rem] md:max-w-[15rem] ${open ? "max-w-[15rem] md:md:max-w-[15rem] " : ""} shadow-xl shadow-blue-gray-100`}>
 
 
       <div className="lg:hidden p-2 text-black text-2xl font-body"
@@ -61,8 +51,8 @@ export function DefaultSidebar({ getData, filter, setFilter }) {
         {open ? <IoMdClose /> : <CiMenuBurger />}
       </div>
 
-      <div className="flex mt-2 w-full p-2 flex-col gap-3">
-        <Select onChange={handleDomainChange} size="" label="Select Domain">
+      <div className="flex mt-2 w-20 p-2 flex-col gap-3">
+        <Select onChange={handleDomainChange} size="md" label="Select Domain">
           <Option value="Sales">Sales</Option>
           <Option value="Finance">Finance</Option>
           <Option value="Marketing">Marketing</Option>
@@ -71,12 +61,12 @@ export function DefaultSidebar({ getData, filter, setFilter }) {
           <Option value="UI Designing">UI Designing</Option>
           <Option value="Business">Business</Option>
         </Select>
-        <Select onChange={handleAvailableChange} size="sm" placeholder="Select Available">
+        <Select onChange={handleAvailableChange} size="sm" label="Select Available">
           <Option value="true">Available</Option>
           <Option value="false">Unavailable</Option>
         </Select>
 
-        <Select onChange={handleGenderChange} size="sm" placeholder="Select Gender">
+        <Select onChange={handleGenderChange} size="sm" label="Select Gender">
           <Option value="Male">Male</Option>
           <Option value="Female">Female</Option>
           <Option value="Agender">Agender</Option>

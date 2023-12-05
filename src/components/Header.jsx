@@ -52,10 +52,10 @@ const Header = () => {
                 >
                   <Link
                     onClick={() => setOpen(!open)}
-                    to='/about'
+                    to='/team'
                     className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-primary translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'
                   >
-                    About
+                    Team
                   </Link>
 
                 </li>
@@ -64,13 +64,14 @@ const Header = () => {
                 >
                   <Link
                     onClick={() => setOpen(!open)}
-                    to='/team'
+                    to='/about'
                     className='text-lg text-gray-200 p-2 group-hover:border-b-2 border-b-primary translate-x-0 hover:translate-x-3 underline-offset-[20px] hover:text-red-600 font-semibold transition-all duration-800'
                   >
-                    Team
+                    About
                   </Link>
 
                 </li>
+
 
 
 
