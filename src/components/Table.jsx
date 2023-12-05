@@ -22,7 +22,9 @@ const Table = ({ data,
   handleEdit,
   getData,
   search,
-  setSearch
+  setSearch,
+  currentPage,
+  setCurrentPage
 }) => {
   const [open, setOpen] = useState(false);
   const [updateData, setUpdateData] = useState();
@@ -52,11 +54,11 @@ const Table = ({ data,
       if (response.ok) {
         getData();
         handleOpen();
-        console.log('done');
+        // console.log('done');
       }
 
     } catch (error) {
-      console.error('Error updating user:', error.message);
+      // console.error('Error updating user:', error.message);
     }
   };
 
@@ -71,10 +73,18 @@ const Table = ({ data,
   const dispatch = useDispatch();
 
   const handleAddUser = (paylode) => {
-    console.log(paylode);
+    // console.log(paylode);
     dispatch(addToCart(paylode));
   };
 
+  const perPage = 10;
+
+  const totalPages = Math.ceil(data?.meta?.total / perPage);
+  const handlePageChange = (page = 1) => {
+    // console.log(page);
+    setCurrentPage(page);
+    getData(page);
+  };
 
 
   return (
@@ -160,34 +170,27 @@ const Table = ({ data,
             </div>
           </div>
         </div>
+        <div className="flex justify-center my-4">
+          <nav>
+            <ul className="pagination flex rounded-md font-medium">
+              {Array.from({ length: totalPages }).map((_, index) => (
+                <li
+                  key={index}
+                  className={`cursor-pointer px-3 py-2 ${currentPage === index + 1 ? 'bg-blue-500 text-white' : 'bg-gray-300'
+                    }`}
+                  onClick={() => {
+                    handlePageChange(index + 1);
 
-        {/* <CardFooter className="flex items-center justify-between border-t border-blue-gray-50 p-4">
+                  }
+                  }
+                >
+                  {index + 1}
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
 
-          <div className="flex items-center gap-2">
-            <IconButton variant="outlined" size="sm">
-              1
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              2
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              3
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              ...
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              8
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              9
-            </IconButton>
-            <IconButton variant="text" size="sm">
-              10
-            </IconButton>
-          </div>
-
-        </CardFooter> */}
       </Card>
     </>
   );
@@ -203,5 +206,7 @@ Table.propTypes = {
   handleEdit: PropTypes.func.isRequired,
   getData: PropTypes.func.isRequired,
   search: PropTypes.string.isRequired,
-  setSearch: PropTypes.func.isRequired,
+  setSearch: PropTypes.string.isRequired,
+  setCurrentPage: PropTypes.func.isRequired,
+  currentPage: PropTypes.func.isRequired,
 };

@@ -5,6 +5,8 @@ import Table from "./Table";
 const Home = () => {
   const [data, setData] = useState();
   const [search, setSearch] = useState('');
+  const [currentPage, setCurrentPage] = useState(1);
+
   const [filter, setFilter] = useState({
     domain: '',
     available: '',
@@ -16,11 +18,11 @@ const Home = () => {
     .filter(key => filter[key] !== '')
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filter[key])}`)
     .join('&');
-  console.log(queryString);
 
-  const getData = () => {
+  const getData = (page = 1) => {
+    console.log('fetched page', currentPage);
     console.log(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&searchTerm=${search}`, 'urlllll');
-    fetch(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&searchTerm=${search}`)
+    fetch(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&page=${page}&searchTerm=${search}`)
       .then(res => res.json())
       .then(res => setData(res?.data))
       .catch(error => {
@@ -91,7 +93,7 @@ const Home = () => {
     }
   }, [data]);
 
-  console.log(data);
+  // console.log(data);
   return (
     <div className="flex gap-2 lg:gap-5 )">
       <div className="flex">
@@ -126,6 +128,8 @@ const Home = () => {
         getData={getData}
         search={search}
         setSearch={setSearch}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
       />
     </div>
   );
