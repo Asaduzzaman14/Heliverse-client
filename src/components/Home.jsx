@@ -5,10 +5,22 @@ import Table from "./Table";
 const Home = () => {
   const [data, setData] = useState();
   const [search, setSearch] = useState('');
-  console.log(search);
+  const [filter, setFilter] = useState({
+    domain: '',
+    available: '',
+    gender: ''
+  });
+
+  // Convert the filter object to a query string
+  const queryString = Object.keys(filter)
+    .filter(key => filter[key] !== '')
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(filter[key])}`)
+    .join('&');
+  console.log(queryString);
 
   const getData = () => {
-    fetch(`https://heliverse-two.vercel.app/api/v1/users?searchTerm=${search}`)
+    console.log(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&searchTerm=${search}`, 'urlllll');
+    fetch(`https://heliverse-two.vercel.app/api/v1/users?${queryString}&searchTerm=${search}`)
       .then(res => res.json())
       .then(res => setData(res?.data))
       .catch(error => {
@@ -17,8 +29,24 @@ const Home = () => {
       });
   };
 
+
+  // const convertToQueryString = (params) => {
+  //   return Object.keys(params)
+  //     .filter((key) => params[key] !== '')
+  //     .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(params[key]))
+  //     .join('&');
+  // };
+
+  // const fetchWithData = () => {
+  //   const queryString = convertToQueryString(filter);
+  //   setQuery(queryString)
+
+  // };
+
+
+
   const [deleteid, setDeleteId] = useState(null);
-  const [updateid, setUpdateId] = useState(null);
+  const [setUpdateId] = useState(null);
 
 
   useEffect(() => {
@@ -49,10 +77,7 @@ const Home = () => {
   }, [deleteid]);
 
   const handleDelete = (id) => {
-    console.log(id);
-
     window.confirm('are you sure');
-
     setDeleteId(id);
   };
 
@@ -60,17 +85,17 @@ const Home = () => {
   const handleEdit = (id) => {
     setUpdateId(id);
   };
-  // useEffect(() => {
-  //   if (!data) {
-  //     getData();
-  //   }
-  // }, [data]);
+  useEffect(() => {
+    if (!data) {
+      getData();
+    }
+  }, [data]);
 
   console.log(data);
   return (
     <div className="flex gap-2 lg:gap-5 )">
       <div className="flex">
-        <DefaultSidebar />
+        <DefaultSidebar getData={getData} filter={filter} setFilter={setFilter} />
         {/* <div className="pt-4 text-center flex mx-auto">
           <div className="relative flex w-full max-w-[24rem]">
             <Input

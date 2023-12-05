@@ -13,6 +13,8 @@ import {
 } from "@material-tailwind/react";
 import UpdateUser from "./UpdateUser";
 import { useEffect, useState } from "react";
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../redux/team';
 
 
 const Table = ({ data,
@@ -66,6 +68,12 @@ const Table = ({ data,
     getData();
 
   }, [!search]);
+  const dispatch = useDispatch();
+
+  const handleAddUser = (paylode) => {
+    console.log(paylode);
+    dispatch(addToCart(paylode));
+  };
 
 
 
@@ -126,7 +134,7 @@ const Table = ({ data,
                       data?.data?.map(d => {
                         return (
                           <tr className="border-b dark:border-neutral-500" key={d._id}>
-                            <td className="whitespace-nowrap px-2 md:px-4 py-4 font-medium"><Checkbox /></td>
+                            <td className="whitespace-nowrap px-2 md:px-4 py-4 font-medium"><Checkbox onChange={() => handleAddUser(d._id)} /></td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4"><img src={d?.avatar} alt="" /></td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.first_name} {d.last_name}</td>
                             <td className="whitespace-nowrap px-2 md:px-4 py-4">{d?.email}</td>
